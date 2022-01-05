@@ -10,7 +10,7 @@
 <div class="breadcrumb-header justify-content-between">
 <div class="left-content">
 <div>
-<h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">برنامج الفواتير</h2>
+<h2 class="main-content-title tx-24 mg-b-1 mg-b-lg-1">Hi, welcome back!</h2>
 </div>
 </div>
 <div class="main-dashboard-header-right">
@@ -100,7 +100,7 @@ $count_not_payed = DB::table('invoices')->where('Value_Status', 0)->count();
 @php 	
 $per = $count_not_payed / $count_invoices * 100;
 @endphp
-{{round($per)}} %
+{{$per}} %
 </span>
 </span>
 </div>
@@ -146,7 +146,7 @@ $count_payed = DB::table('invoices')->where('Value_Status', 1)->count();
 @php 	
 $per_p = $count_payed / $count_invoices * 100;
 @endphp
-{{round($per_p)}} %
+{{$per_p}} %
 
 
 </span>
@@ -192,7 +192,7 @@ $count_per_payed = DB::table('invoices')->where('Value_Status', 2)->count();
 @php 	
 $per_pp = $count_per_payed / $count_invoices * 100;
 @endphp
-{{round($per_pp)}} %
+{{$per_pp}} %
 
 </span>
 </span>

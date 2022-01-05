@@ -15,7 +15,7 @@ class RoleController extends Controller
     function __construct()
 {
 $this->middleware('permission:عرض صلاحية', ['only' => ['index','store']]);
-$this->middleware('permission:role-create', ['only' => ['create','store']]);
+$this->middleware('permission:اضافة صلاحية', ['only' => ['create','store']]);
 $this->middleware('permission:تعديل صلاحية', ['only' => ['edit','update']]);
 $this->middleware('permission:role-delete', ['only' => ['destroy']]);
 }

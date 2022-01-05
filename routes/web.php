@@ -10,13 +10,7 @@ use App\Http\controllers\UserController;
 use App\Http\controllers\RoleController;
 use App\Http\controllers\reportsController;
 use App\Http\controllers\homeController;
-
-
-
-
-
-
-
+use App\Http\Controllers\ProfilesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,27 +23,45 @@ use App\Http\controllers\homeController;
 |
 */
 
-Route::get('/', function () {
-    if (Auth::check()) {
-    return view('dashboard');
-    }else
-    {
-     return view('auth.login');  
-    }
+Route::middleware(['auth'])->group(function(){
+
+    Route::get('/',function(){
+
+        return view('dashboard');
+    });
+  
 });
 
 
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+
 
 Route::middleware('auth')->group(function(){
 
-    Route::get('/dashboard', [homeController::class,'index'])->name('home');
+    Route::get('/', [homeController::class,'index'])->name('home');
+
+    Route::get('/profile/index',[ProfilesController::class,'index'])->name('profile.index');
+
+    Route::get('/profile/edit',[ProfilesController::class,'edit_page'])->name('profile.edit');
+
+    Route::post('/profile/update/{user}',[ProfilesController::class,'update'])->name('profile.update');
+
+    Route::get('/profile/password/change',[ProfilesController::class,'password_page'])->name('profile.password.change');
+
+    Route::post('/profile/password/change/process/{user}',[ProfilesController::class,'password_change'])->name('profile.password.change.process');
+
+
+
 
 
     Route::resource('/invoices',invoicesController::class);
+
+    Route::get('paid/invoices',[invoicesController::class,'paid_invoices'])->name('paid.invoices');
+
+    Route::get('unpaid/invoices',[invoicesController::class,'unpaid_invoices'])->name('unpaid.invoices');
+
+    Route::get('partialypaid/invoices',[invoicesController::class,'partialypaid_invoices'])->name('partialypaid.invoices');
+
 
 
     Route::resource('/sections',sectionsController::class);
@@ -146,5 +158,5 @@ Route::group(['middleware' => ['auth']], function() {
 
 
 
-Route::get('/{page}',[AdminController::class,'index']);
+//Route::get('/{page}',[AdminController::class,'index']);
 

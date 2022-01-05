@@ -93,12 +93,7 @@ class homeController extends Controller
         ->options([]);
 
 
-
-
-
-
-
-return view('dashboard', compact('chartjs','chartjs2'));
+         return view('dashboard', compact('chartjs','chartjs2'));
 
 
 

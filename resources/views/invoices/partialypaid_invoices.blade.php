@@ -12,7 +12,7 @@
 <div class="breadcrumb-header justify-content-between">
 <div class="my-auto">
 <div class="d-flex">
-<h4 class="content-title mb-0 my-auto">الفواتير</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ أرشيف الفواتير</span>
+<h4 class="content-title mb-0 my-auto">الفواتير</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/  الفواتير المدفوعه جزئيا  </span>
 </div>
 </div>
 
@@ -20,7 +20,7 @@
 <!-- breadcrumb -->
 @endsection
 @section('title')
-{{'أرشيف الفواتير'}}
+{{' الفواتير المدفوعه جزئيا'}}
 @endsection
 @section('content')
 <!-- row -->
@@ -30,6 +30,16 @@
 <div class="card">
 
 <div class="card-header pb-0">
+<div class="col-sm-6 col-md-4 col-xl-3">
+<a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale" href="{{url('invoice/add')}}">اضافة فاتورة</a>
+
+
+
+<a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale" href="{{url('users/export/')}}">تصدير اكسيل</a>
+
+
+
+</div>
 <div class="card-body">
 <div class="table-responsive">
 <table class="table text-md-nowrap" id="example1">
@@ -54,7 +64,7 @@
 		$i=1;
 		@endphp
 
-		@foreach($archived_inv as $val)
+		@foreach($data as $val)
 		<tr>
 			<td>{{$i++}}</td>
 			<td>{{$val->invoice_number}}</td>
@@ -79,12 +89,16 @@
   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 العمليات  </button>
   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-  
-    <a class="dropdown-item"data-toggle="modal"
-data-id="{{$val->id}}" data-effect="effect-scale"  href="#modaldemo10">إلغاء الارشفة</a>
+    <a class="dropdown-item" href="{{route('invoice.edit',$val->id)}}">تعديل الفاتورة</a>
+    <a class="dropdown-item"  data-toggle="modal"
+data-id="{{$val->id}}" data-effect="effect-scale"  href="#modaldemo10">حذف الفاتورة</a>
+    <a class="dropdown-item" href="{{route('status.update',$val->id)}}">تغيير حالة الدفع</a>
+	<a class="dropdown-item"  data-toggle="modal"
+data-id="{{$val->id}}" data-effect="effect-scale"  href="#modaldemo11">أرشفة الفاتورة</a>
 
-<a class="dropdown-item"  data-toggle="modal"
-data-id="{{$val->id}}" data-effect="effect-scale"  href="#modaldemo11">حذف الفاتورة </a>
+<a class="dropdown-item" href="{{route('invoice.print',$val->id)}}">طباعة الفاتورة</a>
+
+
   </div>
 </div>
 
@@ -104,14 +118,14 @@ data-id="{{$val->id}}" data-effect="effect-scale"  href="#modaldemo11">حذف ا
 
 <!-- modal for delete data !-->
 
-<div class="modal" id="modaldemo11">
+<div class="modal" id="modaldemo10">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content modal-content-demo">
                                 <div class="modal-header">
                                     <h6 class="modal-title">حذف الفاتورة</h6><button aria-label="Close" class="close" data-dismiss="modal"
                                                                                    type="button"><span aria-hidden="true">&times;</span></button>
                                 </div>
-                                <form action="{{route('deleteinvoices')}}" method="post">
+                                <form action="{{route('invoice.delete')}}" method="post">
                                     @csrf
 									
 
@@ -129,22 +143,22 @@ data-id="{{$val->id}}" data-effect="effect-scale"  href="#modaldemo11">حذف ا
                     </div>
 
 
-					<!-- modal for unarchive data !-->
+					<!-- modal for archive data !-->
 
-<div class="modal" id="modaldemo10">
+<div class="modal" id="modaldemo11">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content modal-content-demo">
                                 <div class="modal-header">
-                                    <h6 class="modal-title">الغاء أرشفة الفاتورة </h6><button aria-label="Close" class="close" data-dismiss="modal"
-                    type="button"><span aria-hidden="true">&times;</span></button>
+                                    <h6 class="modal-title">أرشفة الفاتورة</h6><button aria-label="Close" class="close" data-dismiss="modal"
+                                                                                   type="button"><span aria-hidden="true">&times;</span></button>
                                 </div>
-                                <form action="{{route('unarchive')}}" method="post">
+                                <form action="{{route('invoice.archive')}}" method="post">
                                     @csrf
 									
 
                                     <div class="modal-body">
-									<input type ="text" id="id" name="id">
-                                        <p>هل انت متاكد من  الغاءأرشفة الفاتورة ؟</p><br>
+									<input type ="hidden" id="id" name="id">
+                                        <p>هل انت متاكد من أرشفة الفاتورة ؟</p><br>
                                        </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>

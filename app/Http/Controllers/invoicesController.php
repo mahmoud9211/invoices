@@ -216,4 +216,30 @@ Notification::send($user,new invoice_db($invoice_id));
     {
         return Excel::download(new invoicesExport, 'invoices.xlsx');
     }
+
+    public function paid_invoices ()
+    {
+        $data = invoices::where('Value_Status',1)->get();
+
+        return view('invoices.paid_invoices',compact('data'));
+    }
+
+    public function unpaid_invoices ()
+    {
+        $data = invoices::where('Value_Status',0)->get();
+
+        return view('invoices.unpaid_invoices',compact('data'));
+    }
+
+    public function partialypaid_invoices ()
+    {
+
+        $data = invoices::where('Value_Status',2)->get();
+
+        return view('invoices.partialypaid_invoices',compact('data'));
+
+
+    }
+
+    
 }
