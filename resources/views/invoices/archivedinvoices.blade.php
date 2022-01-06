@@ -80,11 +80,15 @@
 العمليات  </button>
   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
   
+	@can('الغاء ارشفة الفاتورة')
     <a class="dropdown-item"data-toggle="modal"
 data-id="{{$val->id}}" data-effect="effect-scale"  href="#modaldemo10">إلغاء الارشفة</a>
+@endcan
 
+@can('حذف الفاتورة')
 <a class="dropdown-item"  data-toggle="modal"
 data-id="{{$val->id}}" data-effect="effect-scale"  href="#modaldemo11">حذف الفاتورة </a>
+@endcan
   </div>
 </div>
 
@@ -143,7 +147,7 @@ data-id="{{$val->id}}" data-effect="effect-scale"  href="#modaldemo11">حذف ا
 									
 
                                     <div class="modal-body">
-									<input type ="text" id="id" name="id">
+									<input type ="hidden" id="id" name="id">
                                         <p>هل انت متاكد من  الغاءأرشفة الفاتورة ؟</p><br>
                                        </div>
                                     <div class="modal-footer">

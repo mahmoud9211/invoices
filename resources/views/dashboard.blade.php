@@ -42,7 +42,7 @@
 	
 @php
 
-$sum_invoices = DB::table('invoices')->sum('Total');
+$sum_invoices = DB::table('invoices')->where('deleted_at',null)->sum('Total');
 
 @endphp
 {{number_format($sum_invoices,2)}} $
@@ -51,7 +51,7 @@ $sum_invoices = DB::table('invoices')->sum('Total');
 
 @php
 
-$count_invoices = DB::table('invoices')->count(); 
+$count_invoices = DB::table('invoices')->where('deleted_at',null)->count(); 
 
 @endphp
 {{$count_invoices}}
@@ -78,7 +78,7 @@ $count_invoices = DB::table('invoices')->count();
 <div class="">
 <h4 class="tx-20 font-weight-bold mb-1 text-white">
 	@php
-      $notpayed = DB::table('invoices')->where('Value_Status', 0)->sum('Total');
+      $notpayed = DB::table('invoices')->where('Value_Status', 0)->where('deleted_at',null)->sum('Total');
 	@endphp
 
 	{{number_format($notpayed,2)}} $
@@ -86,7 +86,7 @@ $count_invoices = DB::table('invoices')->count();
 <p class="mb-0 tx-12 text-white op-7">
 @php 
 
-$count_not_payed = DB::table('invoices')->where('Value_Status', 0)->count();
+$count_not_payed = DB::table('invoices')->where('Value_Status', 0)->where('deleted_at',null)->count();
 
 @endphp
 
@@ -98,9 +98,20 @@ $count_not_payed = DB::table('invoices')->where('Value_Status', 0)->count();
 <i class="fas fa-arrow-circle-down text-white"></i>
 <span class="text-white op-7">
 @php 	
+if($count_invoices !== 0)
 $per = $count_not_payed / $count_invoices * 100;
+else 
+
+$count_invoices = 1;
+
+$per = $count_not_payed / $count_invoices * 100;
+
+
+
 @endphp
+
 {{round($per)}} %
+
 </span>
 </span>
 </div>
@@ -121,7 +132,7 @@ $per = $count_not_payed / $count_invoices * 100;
 <h4 class="tx-20 font-weight-bold mb-1 text-white">
 
 @php
-      $payed = DB::table('invoices')->where('Value_Status', 1)->sum('Total');
+      $payed = DB::table('invoices')->where('Value_Status', 1)->where('deleted_at',null)->sum('Total');
 	@endphp
 
 	{{number_format($payed,2)}} $
@@ -131,7 +142,7 @@ $per = $count_not_payed / $count_invoices * 100;
 
 @php 
 
-$count_payed = DB::table('invoices')->where('Value_Status', 1)->count();
+$count_payed = DB::table('invoices')->where('Value_Status', 1)->where('deleted_at',null)->count();
 
 @endphp
 
@@ -168,7 +179,7 @@ $per_p = $count_payed / $count_invoices * 100;
 <div class="">
 <h4 class="tx-20 font-weight-bold mb-1 text-white">
 @php
-      $per_payed = DB::table('invoices')->where('Value_Status', 2)->sum('Total');
+      $per_payed = DB::table('invoices')->where('Value_Status', 2)->where('deleted_at',null)->sum('Total');
 	@endphp
 
 	{{number_format($per_payed,2)}} $
@@ -176,7 +187,7 @@ $per_p = $count_payed / $count_invoices * 100;
 <p class="mb-0 tx-12 text-white op-7">
 @php 
 
-$count_per_payed = DB::table('invoices')->where('Value_Status', 2)->count();
+$count_per_payed = DB::table('invoices')->where('Value_Status', 2)->where('deleted_at',null)->count();
 
 @endphp
 

@@ -89,21 +89,27 @@ action="{{route('users.store','test')}}" method="post">
 	<label class="form-label">حالة المستخدم</label>
 	<select name="status" id="select-beast" class="form-control  nice-select  custom-select">
 		<option disabled selected value="">اختر</option>
-		<option value="0">مفعل</option>
-		<option value="1">غير مفعل</option>
+		<option value="1">مفعل</option>
+		<option value="0">غير مفعل</option>
 	</select>
 </div>
 </div>
 
 <div class="row mg-b-20">
-<div class="col-xs-12 col-md-12">
+<div class="col-xs-12 col-md-6">
 	<div class="form-group">
 		<label class="form-label"> صلاحية المستخدم</label>
+
+	<select name="roles_name" id="select-beast" class="form-control  nice-select  custom-select">
+		<option selected disabled value="">اختر</option>
+		@foreach($roles as $role)
+		<option value="{{$role->name}}">{{$role->name}}</option>
+		@endforeach
+	</select>
 
 	
       
   
-   {!! Form::select('roles_name[]', $roles,[], array('class' => 'form-control','multiple')) !!}
       
   </div>
 

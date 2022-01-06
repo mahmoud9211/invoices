@@ -91,10 +91,13 @@ Route::middleware('auth')->group(function(){
 
        Route::post('/uploadFiles',[invoiceDet::class,'upload'])->name('uploadFiles');
 
-       Route::get('/invoice/edit{id}',[invoiceDet::class,'editinvoice'])->name('invoice.edit');
-       Route::post('/invoice/update{id}',[invoiceDet::class,'updateinvoice'])->name('invoice.update');
+       Route::post('/attachment/delete/{attachment}',[invoiceDet::class,'att_delete'])->name('attachment.delete');
 
-       Route::post('/invoice/delete',[invoiceDet::class,'deleteinvoice'])->name('invoice.delete');
+
+       Route::get('/invoice/edit{id}',[invoicesController::class,'edit'])->name('invoice.edit');
+       Route::post('/invoice/update{id}',[invoicesController::class,'update'])->name('invoice.update');
+
+       Route::post('/invoice/delete',[invoicesController::class,'destroy'])->name('invoice.delete');
        Route::get('/status/update{id}',[invoiceDet::class,'statusupdate'])->name('status.update');
        Route::post('/change/status{id}',[invoiceDet::class,'changestatus'])->name('change.status');
 

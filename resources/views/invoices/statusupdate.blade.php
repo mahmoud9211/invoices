@@ -227,10 +227,10 @@
 <div class="col-md-6">
 <div class="form-group">
 <label >حالة الدفع</label>
-    <select class="form-control"  name="Status" >
+    <select class="form-control"  name="Value_Status" >
 	<option value="" selected disabled>اختر حالة الدفع</option>
- <option value="مدفوعة">مدفوعة</option>
- <option value="مدفوعة جزئيا">مدفوعة جزئيا</option>
+ <option value="1">مدفوعة</option>
+ <option value="2">مدفوعة جزئيا</option>
 
 </select>
 </div>

@@ -1,5 +1,11 @@
 @extends('layouts.master')
 @section('css')
+<link href="{{URL::asset('assets/plugins/datatable/css/dataTables.bootstrap4.min.css')}}" rel="stylesheet" />
+<link href="{{URL::asset('assets/plugins/datatable/css/buttons.bootstrap4.min.css')}}" rel="stylesheet">
+<link href="{{URL::asset('assets/plugins/datatable/css/responsive.bootstrap4.min.css')}}" rel="stylesheet" />
+<link href="{{URL::asset('assets/plugins/datatable/css/jquery.dataTables.min.css')}}" rel="stylesheet">
+<link href="{{URL::asset('assets/plugins/datatable/css/responsive.dataTables.min.css')}}" rel="stylesheet">
+<link href="{{URL::asset('assets/plugins/select2/css/select2.min.css')}}" rel="stylesheet">
 @endsection
 @section('page-header')
 <!-- breadcrumb -->
@@ -132,7 +138,7 @@ style="text-align:center">
 	<tr>
 		<td>{{ $i }}</td>
 		<td>{{ $x->invoice_number }}</td>
-		<td>{{ $x->product }}</td>
+		<td>{{ $x->product->product_name }}</td>
 		<td>{{ $invoices->Section->section_name }}</td>
 		@if ($x->Value_Status == 0)
 			<td><span
@@ -207,7 +213,7 @@ style="text-align:center">
 				<input type="hidden" id="invoice_id" name="invoice_id"
 					value="{{ $invoices->id }}">
 				
-			</div><br><br>
+			</div>
 			<button type="submit" class="btn btn-primary btn-sm "
 				name="uploadedFile">تاكيد</button>
 		</form>
@@ -216,21 +222,31 @@ style="text-align:center">
 
 
 
-<div class="table-responsive mt-15">
-	<table class="table center-aligned-table mb-0 table table-hover"
-		style="text-align:center">
+<div class="table-responsive">
+	<table class="table text-md-nowrap" id="example1">
+
+		
+
+	
 		<thead>
+			
 			<tr class="text-dark">
+			
 				<th scope="col">م</th>
 				<th scope="col">اسم الملف</th>
 				<th scope="col">قام بالاضافة</th>
 				<th scope="col">تاريخ الاضافة</th>
 				<th scope="col">العمليات</th>
+				
 			</tr>
+			
 		</thead>
+		
+
+		
 		<tbody>
 			<?php $i = 1; ?>
-			@foreach ($det as $attachment)
+			@foreach ($attachments as $attachment)
 				<tr>
                    
 					@if($attachment->file)
@@ -240,22 +256,55 @@ style="text-align:center">
 					<td colspan="2">
 
 						<a class="btn btn-outline-success btn-sm"
-							href="{{url('viewfile')}}/{{$attachment->file}}/{{$attachment->invoice_number}}"
+							href="{{url('viewfile')}}/{{$attachment->file}}/{{$attachment->invoice->invoice_number}}"
 							role="button"><i class="fas fa-eye"></i>&nbsp;
 							عرض</a>
 
 						<a class="btn btn-outline-info btn-sm"
-							href="{{url('downloadfile')}}/{{$attachment->file}}/{{$attachment->invoice_number}}"
+							href="{{url('downloadfile')}}/{{$attachment->file}}/{{$attachment->invoice->invoice_number}}"
 							role="button"><i
 								class="fas fa-download"></i>&nbsp;
 							تحميل</a>
 
-							<button class="btn btn-outline-danger btn-sm"
-								data-toggle="modal"
-								data-file_name=""
-								data-invoice_number=""
-								data-id_file=""
-								data-target="#delete_file">حذف</button>
+							<a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
+							data-toggle="modal" data-target="#del{{$attachment->id}}"><i class=" fa fa-trash"></i>حذف</a>
+
+<!-- modal for delete data !-->
+
+<div class="modal" id="del{{$attachment->id}}">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content modal-content-demo">
+			<div class="modal-header">
+				<h6 class="modal-title">حذف المرفق </h6><button aria-label="Close" class="close" data-dismiss="modal"
+															   type="button"><span aria-hidden="true">&times;</span></button>
+			</div>
+			<form action="{{route('attachment.delete',$attachment->id)}}" method="post">
+		
+				@csrf
+				
+
+				<div class="modal-body">
+				<input type ="hidden" id="id" name="id" value="{{$attachment->id}}">
+					<p>هل انت متأكد من الحذف ؟</p><br>
+				   
+
+
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
+					<button type="submit" class="btn btn-danger">حذف</button>
+				</div>
+		</div>
+		</form>
+	</div>
+</div>
+
+
+
+
+
+
 
 					</td>
 					@endif
@@ -328,4 +377,22 @@ style="text-align:center">
 <!-- main-content closed -->
 @endsection
 @section('js')
+<script src="{{URL::asset('assets/plugins/datatable/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{URL::asset('assets/plugins/datatable/js/dataTables.dataTables.min.js')}}"></script>
+<script src="{{URL::asset('assets/plugins/datatable/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{URL::asset('assets/plugins/datatable/js/responsive.dataTables.min.js')}}"></script>
+<script src="{{URL::asset('assets/plugins/datatable/js/jquery.dataTables.js')}}"></script>
+<script src="{{URL::asset('assets/plugins/datatable/js/dataTables.bootstrap4.js')}}"></script>
+<script src="{{URL::asset('assets/plugins/datatable/js/dataTables.buttons.min.js')}}"></script>
+<script src="{{URL::asset('assets/plugins/datatable/js/buttons.bootstrap4.min.js')}}"></script>
+<script src="{{URL::asset('assets/plugins/datatable/js/jszip.min.js')}}"></script>
+<script src="{{URL::asset('assets/plugins/datatable/js/pdfmake.min.js')}}"></script>
+<script src="{{URL::asset('assets/plugins/datatable/js/vfs_fonts.js')}}"></script>
+<script src="{{URL::asset('assets/plugins/datatable/js/buttons.html5.min.js')}}"></script>
+<script src="{{URL::asset('assets/plugins/datatable/js/buttons.print.min.js')}}"></script>
+<script src="{{URL::asset('assets/plugins/datatable/js/buttons.colVis.min.js')}}"></script>
+<script src="{{URL::asset('assets/plugins/datatable/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{URL::asset('assets/plugins/datatable/js/responsive.bootstrap4.min.js')}}"></script>
+<!--Internal  Datatable js -->
+<script src="{{URL::asset('assets/js/table-data.js')}}"></script>
 @endsection

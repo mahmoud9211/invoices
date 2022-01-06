@@ -12,8 +12,16 @@ class homeController extends Controller
     {
 
         $countall = invoices::count();
+         
 
-        $count1 = invoices::where('Value_Status',1)->count();
+        if($countall == 0)
+        {
+            $per1 = 0;
+            $per2 = 0;
+            $per3 = 0;
+           
+        }else{
+        $count1 = invoices::where('Value_Status',1)->where('deleted_at',null)->count();
         if($count1 == 0)
         {
             $per1 = 0 ; 
@@ -21,7 +29,7 @@ class homeController extends Controller
         {
             $per1 = $count1 / $countall * 100;
         }
-        $count2 = invoices::where('Value_Status',0)->count();
+        $count2 = invoices::where('Value_Status',0)->where('deleted_at',null)->count();
         if ($count2 == 0)
         {
             $per2 = 0;
@@ -29,16 +37,17 @@ class homeController extends Controller
             $per2 = $count2/$countall * 100;
         }
  
-        $count3 = invoices::where('Value_Status',2)->count();
+        $count3 = invoices::where('Value_Status',2)->where('deleted_at',null)->count();
 
         if($count3 == 0)
         {
-            $count3 = 0;
+            $per3 = 0;
 
         }else
         {
             $per3 = $count3 / $countall * 100;
         }
+    }
         
 
         $chartjs = app()->chartjs

@@ -64,22 +64,11 @@
 
                 </div>
 
-                <div class="row mg-b-20">
-                    <div class="parsley-input col-md-6 mg-t-20 mg-md-t-0" id="lnWrapper">
-                        <label>كلمة المرور: <span class="tx-danger">*</span></label>
-                        {!! Form::password('password', array('class' => 'form-control','required')) !!}
-                    </div>
-
-                    <div class="parsley-input col-md-6 mg-t-20 mg-md-t-0" id="lnWrapper">
-                        <label> تاكيد كلمة المرور: <span class="tx-danger">*</span></label>
-                        {!! Form::password('confirm-password', array('class' => 'form-control','required')) !!}
-                    </div>
-                </div>
 
                 <div class="row row-sm mg-b-20">
                     <div class="col-lg-6">
                         <label class="form-label">حالة المستخدم</label>
-                        <select name="Status" id="select-beast" class="form-control  nice-select  custom-select">
+                        <select name="status" id="select-beast" class="form-control  nice-select  custom-select">
                             <option disabled>اختر</option>
                             <option {{$user->status == 1 ? 'selected' : ''}} value="1">مفعل</option>
                             <option {{$user->status == 0 ? 'selected' : ''}} value="0"> غير مفعل</option>
@@ -90,10 +79,16 @@
                 <div class="row mg-b-20">
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
-                            <strong>نوع المستخدم</strong>
-                            {!! Form::select('roles[]', $roles,$userRole, array('class' => 'form-control','multiple'))
-                            !!}
-                        </div>
+                            <label class="form-label"> صلاحية المستخدم</label>
+                    
+                        <select name="roles_name" id="select-beast" class="form-control  nice-select  custom-select">
+                            <option  disabled value="">اختر</option>
+                            @foreach($roles as $role)
+                            <option value="{{$role->name}}" {{$role->name == $user->roles_name ? 'selected' : ''}}>{{$role->name}}</option>
+                            @endforeach
+                        </select>
+   
+                      </div>
                     </div>
                 </div>
                 <div class="mg-t-30">

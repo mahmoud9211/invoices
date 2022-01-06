@@ -40,7 +40,9 @@
 <div class="card-header pb-0">
 
 <div class="col-sm-6 col-md-4 col-xl-3">
+	@can('اضافة مستخدم')
 <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale" href="{{route('users.create')}}">  اضافة مستخدم</a>
+@endcan
 </div>
 
 <div class="card-body">
@@ -66,7 +68,12 @@
 			<td>{{$i++}}</td>
 			<td>{{$val->name}}</td>
 			<td>{{$val->email}} </td>
-			<td>{{$val->status}}</td>
+			<td>@if($val->status == 0)
+				غير مفعل
+				@else 
+				مفعل
+				@endif
+			</td>
 			@if(!empty($val->getRoleNames()))
 			@foreach ($val->getRoleNames() as $v)
 			<td>{{$v}}</td>

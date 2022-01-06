@@ -31,11 +31,13 @@
 
 <div class="card-header pb-0">
 <div class="col-sm-6 col-md-4 col-xl-3">
+	@can('اضافة فاتورة')
 <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale" href="{{url('invoice/add')}}">اضافة فاتورة</a>
+@endcan
 
-
-
+@can('تصدير EXCEL')
 <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale" href="{{url('users/export/')}}">تصدير اكسيل</a>
+@endcan
 
 
 
@@ -89,14 +91,28 @@
   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 العمليات  </button>
   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    @can('تعديل الفاتورة')
     <a class="dropdown-item" href="{{route('invoice.edit',$val->id)}}">تعديل الفاتورة</a>
+	@endcan 
+
+	@can('حذف الفاتورة')
     <a class="dropdown-item"  data-toggle="modal"
 data-id="{{$val->id}}" data-effect="effect-scale"  href="#modaldemo10">حذف الفاتورة</a>
+@endcan
+     
+      @can('تغير حالة الدفع')
     <a class="dropdown-item" href="{{route('status.update',$val->id)}}">تغيير حالة الدفع</a>
+	@endcan 
+
+	@can('ارشفة الفاتورة')
 	<a class="dropdown-item"  data-toggle="modal"
 data-id="{{$val->id}}" data-effect="effect-scale"  href="#modaldemo11">أرشفة الفاتورة</a>
+@endcan
 
+
+@can('طباعةالفاتورة')
 <a class="dropdown-item" href="{{route('invoice.print',$val->id)}}">طباعة الفاتورة</a>
+@endcan
 
 
   </div>

@@ -25,4 +25,14 @@ class invoices extends Model
     {
         return $this->hasOne(products::class,'id','product');
     }
+
+    public function attachment()
+    {
+        return $this->hasMany(attachment::class);
+    }
+
+    public function invoice_det()
+    {
+        return $this->hasMany(invoicedetails::class);
+    }
 }

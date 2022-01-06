@@ -216,13 +216,22 @@
 </div>
 </div>
 <br>
+
+
 <p class="text-danger">* صيغة المرفق pdf, jpeg ,.jpg , png </p>
 
 <h5 class="card-title">المرفقات</h5>
 <div class="form-group">
     <label for="exampleFormControlTextarea1">files</label>
 <input type="file" name="pic">
+
 </div>
+
+@error('pic')
+<span class="text-danger"> {{$message}} </span>
+@enderror
+
+
 	<button type="submit" class="btn btn-primary">حفظ البيانات</button>
 </div>
 
