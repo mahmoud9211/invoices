@@ -55,6 +55,7 @@ Route::middleware('auth')->group(function(){
 
 
     Route::resource('/invoices',invoicesController::class);
+    
 
     Route::get('paid/invoices',[invoicesController::class,'paid_invoices'])->name('paid.invoices');
 
@@ -81,7 +82,6 @@ Route::middleware('auth')->group(function(){
 
     Route::post('/products/delete',[productsController::class,'destroy'])->name('products.delete');
 
-    Route::get('/invoice/add',[invoiceDet::class,'add']);
 
 
        Route::get('/invoices/det/{id}',[invoiceDet::class,'edit'])->name('invoices.det');

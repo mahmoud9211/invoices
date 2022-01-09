@@ -10,11 +10,16 @@ use App\Models\sections;
 
 class productsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
+    public function  __construct()
+    {
+    $this->middleware('permission:المنتجات', ['only' => ['index']]);
+    $this->middleware('permission:اضافة منتج', ['only' => ['create','store']]);
+    $this->middleware('permission:تعديل منتج', ['only' => ['edit','update','show']]);
+    $this->middleware('permission:حذف منتج', ['only' => ['destroy']]);
+    }
+
+
     public function index()
     {
         $sections = sections::get();

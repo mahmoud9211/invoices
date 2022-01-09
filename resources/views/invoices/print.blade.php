@@ -34,10 +34,10 @@
                         <div class="invoice-header">
                             <h1 class="invoice-title">فاتورة تحصيل</h1>
                             <div class="billed-from">
-                                <h6>BootstrapDash, Inc.</h6>
-                                <p>201 Something St., Something Town, YT 242, Country 6546<br>
-                                    Tel No: 324 445-4544<br>
-                                    Email: youremail@companyname.com</p>
+                                <h6>Egypt</h6>
+                                <p>Portsaid<br>
+                                    Tel No: +002 01111995872<br>
+                                    Email: mahmoudmoustafa92@outlook.com</p>
                             </div><!-- billed-from -->
                         </div><!-- invoice-header -->
                         <div class="row mg-t-20">

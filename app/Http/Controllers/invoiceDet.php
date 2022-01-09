@@ -17,11 +17,23 @@ use Illuminate\Support\Facades\Auth as FacadesAuth;
 
 class invoiceDet extends Controller
 {
-    public function add()
-    {
-       $sections = sections::get();
-        return view('invoices.addinvoices',compact('sections'));
-    }
+
+  public function  __construct()
+  {
+  $this->middleware('permission:تفاصيل الفاتوره', ['only' => ['edit']]);
+  $this->middleware('permission:عرض المرفق', ['only' => ['viewfile']]);
+  $this->middleware('permission:تحميل المرفق', ['only' => ['downloadfile']]);
+  $this->middleware('permission:حذف المرفق', ['only' => ['att_delete']]);
+  $this->middleware('permission:اضافة مرفق', ['only' => ['upload']]);
+
+  $this->middleware('permission:تغير حالة الدفع', ['only' => ['statusupdate','changestatus']]);
+  $this->middleware('permission:ارشفة الفاتورة', ['only' => ['invoicearchive','archived']]);
+  $this->middleware('permission:الغاء ارشفة الفاتورة', ['only' => ['delinvoices']]);
+  $this->middleware('permission:طباعةالفاتورة', ['only' => ['printinvoice']]);
+
+
+  }
+    
 
     public function getprobyajax ($section_id)
     {
@@ -54,8 +66,6 @@ class invoiceDet extends Controller
     {
       $files = Storage::disk('public_uploads')->getDriver()->getAdapter()->applyPathPrefix($invoice_number.'/'.$file);
         return response()->download($files);
-
-
     }
 
 

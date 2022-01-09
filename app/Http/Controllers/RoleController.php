@@ -12,12 +12,12 @@ use DB;
 class RoleController extends Controller
 {
 
-    function __construct()
+ public function  __construct()
 {
 $this->middleware('permission:عرض صلاحية', ['only' => ['index','store']]);
 $this->middleware('permission:اضافة صلاحية', ['only' => ['create','store']]);
 $this->middleware('permission:تعديل صلاحية', ['only' => ['edit','update']]);
-$this->middleware('permission:role-delete', ['only' => ['destroy']]);
+$this->middleware('permission:حذف صلاحية', ['only' => ['destroy']]);
 }
 
 
@@ -58,8 +58,14 @@ $this->validate($request, [
 ]);
 $role = Role::create(['name' => $request->input('name')]);
 $role->syncPermissions($request->input('permission'));
+
+$msg = ([
+'message' => 'تم اضافة الصلاحيه بنجاح',
+'alert-type' => 'success'
+]);
+
 return redirect()->route('roles.index')
-->with('success','Role created successfully');
+->with($msg);
 }
 /**
 * Display the specified resource.
@@ -108,20 +114,29 @@ $role = Role::find($id);
 $role->name = $request->input('name');
 $role->save();
 $role->syncPermissions($request->input('permission'));
+
+$msg = ([
+    'message' => 'تم تعديل الصلاحيه بنجاح',
+    'alert-type' => 'success'
+    ]);
+
 return redirect()->route('roles.index')
-->with('success','Role updated successfully');
+->with($msg);
 }
-/**
-* Remove the specified resource from storage.
-*
-* @param  int  $id
-* @return \Illuminate\Http\Response
-*/
-public function destroy($id)
+
+
+public function destroy(Request $request)
 {
+    $id = $request->id;
 DB::table("roles")->where('id',$id)->delete();
+
+$msg = ([
+    'message' => 'تم حذف الصلاحيه بنجاح',
+    'alert-type' => 'success'
+    ]);
+
 return redirect()->route('roles.index')
-->with('success','Role deleted successfully');
+->with($msg);
 }
 
     

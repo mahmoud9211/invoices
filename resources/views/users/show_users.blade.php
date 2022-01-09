@@ -6,10 +6,6 @@
 <link href="{{URL::asset('assets/plugins/datatable/css/jquery.dataTables.min.css')}}" rel="stylesheet">
 <link href="{{URL::asset('assets/plugins/datatable/css/responsive.dataTables.min.css')}}" rel="stylesheet">
 <link href="{{URL::asset('assets/plugins/select2/css/select2.min.css')}}" rel="stylesheet">
-
-
-
-
 @endsection
 @section('page-header')
 				<!-- breadcrumb -->
@@ -19,7 +15,7 @@
 							<h4 class="content-title mb-0 my-auto">المستخدمين</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ قائمة المستخدمين</span>
 						</div>
 					</div>
-				
+			
 				</div>
 				<!-- breadcrumb -->
 @endsection
@@ -28,21 +24,23 @@
 {{'قائمة المستخدمين'}}
 @endsection
 
-
 @section('content')
 				<!-- row -->
 				<div class="row">
 
 
-				<div class="col-xl-12">
+
+	<div class="col-xl-12">
 <div class="card">
 
 <div class="card-header pb-0">
 
 <div class="col-sm-6 col-md-4 col-xl-3">
+
 	@can('اضافة مستخدم')
-<a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale" href="{{route('users.create')}}">  اضافة مستخدم</a>
-@endcan
+	<a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale" href="{{route('users.create')}}">  اضافة مستخدم</a>
+	@endcan
+
 </div>
 
 <div class="card-body">
@@ -59,6 +57,7 @@
 		</tr>
 	</thead>
 	<tbody>
+	
 		@php
 		$i=1;
 		@endphp
@@ -74,18 +73,20 @@
 				مفعل
 				@endif
 			</td>
-			@if(!empty($val->getRoleNames()))
-			@foreach ($val->getRoleNames() as $v)
-			<td>{{$v}}</td>
-			@endforeach
-			@endif
+			
+			<td>{{$val->roles_name}}</td>
 			<td>
+
+				@can('تعديل مستخدم')
 			<a class="modal-effect btn btn-sm btn-info" data-effect="effect-scale" 
   href="{{route('users.edit',$val->id)}}"><i class="fa fa-edit"></i></a>
+  @endcan
 
+  @can('حذف مستخدم')
 <a class="modal-effect btn btn-sm btn-danger"  data-toggle="modal"
 data-id="{{$val->id}}" 
  data-effect="effect-scale"  href="#modaldemo9"><i class="fa fa-trash"></i></a>	
+ @endcan
 
 
 
@@ -108,10 +109,7 @@ data-id="{{$val->id}}"
 					</div>    
 
 
-
-<!-- modal for delete data !-->
-
-<div class="modal" id="modaldemo9">
+					<div class="modal" id="modaldemo9">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content modal-content-demo">
                                 <div class="modal-header">
@@ -134,7 +132,6 @@ data-id="{{$val->id}}"
                             </form>
                         </div>
                     </div>		
-
 
 
 
@@ -171,22 +168,18 @@ data-id="{{$val->id}}"
 <!--Internal  Datatable js -->
 <script src="{{URL::asset('assets/js/table-data.js')}}"></script>
 
-
-</script>
-
 <script>
-$('#modaldemo9').on('show.bs.modal',function(event){
-
-let button = $(event.relatedTarget)
-let id = button.data('id')
-let modal = $(this)
-modal.find('.modal-body #id').val(id);
-})
-
-
-
-
-</script>
-
+	$('#modaldemo9').on('show.bs.modal',function(event){
+	
+	let button = $(event.relatedTarget)
+	let id = button.data('id')
+	let modal = $(this)
+	modal.find('.modal-body #id').val(id);
+	})
+	
+	
+	
+	
+	</script>
 
 @endsection

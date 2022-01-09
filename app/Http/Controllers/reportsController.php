@@ -10,6 +10,13 @@ use App\Models\sections;
 
 class reportsController extends Controller
 {
+
+    public function  __construct()
+    {
+    $this->middleware('permission:تقرير الفواتير', ['only' => ['index','search']]);
+    $this->middleware('permission:تقرير العملاء', ['only' => ['index2','search2']]);
+    }
+
 public function index ()
 {
 return view ('reports.invoices');

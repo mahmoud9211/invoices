@@ -13,6 +13,14 @@ use Hash;
 class UserController extends Controller
 {
 
+    public function  __construct()
+    {
+    $this->middleware('permission:قائمة المستخدمين', ['only' => ['index']]);
+    $this->middleware('permission:اضافة مستخدم', ['only' => ['create','store']]);
+    $this->middleware('permission:تعديل مستخدم', ['only' => ['edit','update','show']]);
+    $this->middleware('permission:حذف مستخدم', ['only' => ['destroy']]);
+    }
+
     public function index(Request $request)
 {
 $data = User::where('roles_name','user')->paginate(5);

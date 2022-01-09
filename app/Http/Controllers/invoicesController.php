@@ -27,11 +27,20 @@ use Auth;
 
 class invoicesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+  public function  __construct()
+  {
+  $this->middleware('permission:قائمة الفواتير', ['only' => ['index']]);
+  $this->middleware('permission:اضافة فاتورة', ['only' => ['create','store']]);
+  $this->middleware('permission:تعديل الفاتورة', ['only' => ['edit','update','show']]);
+  $this->middleware('permission:حذف الفاتورة', ['only' => ['destroy']]);
+
+  $this->middleware('permission:الفواتير المدفوعة', ['only' => ['paid_invoices']]);
+  $this->middleware('permission:الفواتير الغير مدفوعة', ['only' => ['unpaid_invoices']]);
+  $this->middleware('permission:الفواتير المدفوعة جزئيا', ['only' => ['partialypaid_invoices']]);
+  $this->middleware('permission:تصدير EXCEL', ['only' => ['export']]);
+
+
+  }
 
 
   
@@ -51,14 +60,11 @@ class invoicesController extends Controller
      */
     public function create()
     {
+      $sections = sections::get();
+      return view('invoices.addinvoices',compact('sections'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+  
     public function store(Request $request)
     {
         $validation = $request->validate([
@@ -166,23 +172,14 @@ Notification::send($user,new invoice_db($invoice_id));
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
+
     public function edit ($id)
 
     {
@@ -192,13 +189,7 @@ Notification::send($user,new invoice_db($invoice_id));
       return view ('invoices.invoiceedit',compact('data','sections','products'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
    
     public function update ($id,Request $request)
 {

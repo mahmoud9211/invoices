@@ -45,7 +45,9 @@
 			<div class="card">
 				<div class="card-header pb-0">
 				<div class="col-sm-6 col-md-4 col-xl-3">
+					@can('اضافة منتج')
 					<a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale" data-toggle="modal" href="#modaldemo8">اضافة منتج</a>
+					@endcan 
 				</div>
 				</div>
 				<div class="card-body">
@@ -71,14 +73,18 @@
 									<td>{{$product->sections->section_name}} </td>
 									<td>{{$product->description}}</td>
 									<td>
+
+@can('تعديل منتج')										
 <a class="modal-effect btn btn-sm btn-info" data-effect="effect-scale"
  data-toggle="modal" data-id="{{$product->id}}" data-name="{{$product->product_name}}" data-section="{{$product->sections->section_name}}"
  data-desc="{{$product->description}}"
   href="#modaldemo9"><i class="fa fa-edit"></i></a>
+  @endcan
 
+  @can('حذف منتج')
 <a class="modal-effect btn btn-sm btn-danger"  data-toggle="modal" data-id="{{$product->id}}" data-name="{{$product->product_name}}"
  data-effect="effect-scale"  href="#modaldemo10"><i class="fa fa-trash"></i></a>	
-
+@endcan
 									</td>
 									
 								
