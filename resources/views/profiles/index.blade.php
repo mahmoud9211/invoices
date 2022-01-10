@@ -33,7 +33,7 @@
 						<div class="d-flex justify-content-between mg-b-20">
 							<div>
 								<h5 class="main-profile-name">{{optional(Auth::user())->name}}</h5>
-								<p class="main-profile-name-text">{{optional(Auth::user())->roles_name[0]}}</p>
+								<p class="main-profile-name-text">{{optional(Auth::user())->roles_name}}</p>
 							</div>
 						</div>
 						<h6>{{optional(Auth::user())->email}}</h6>

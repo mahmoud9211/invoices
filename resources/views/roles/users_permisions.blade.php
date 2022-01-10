@@ -1,11 +1,6 @@
 @extends('layouts.master')
 @section('css')
-<link href="{{URL::asset('assets/plugins/datatable/css/dataTables.bootstrap4.min.css')}}" rel="stylesheet" />
-<link href="{{URL::asset('assets/plugins/datatable/css/buttons.bootstrap4.min.css')}}" rel="stylesheet">
-<link href="{{URL::asset('assets/plugins/datatable/css/responsive.bootstrap4.min.css')}}" rel="stylesheet" />
-<link href="{{URL::asset('assets/plugins/datatable/css/jquery.dataTables.min.css')}}" rel="stylesheet">
-<link href="{{URL::asset('assets/plugins/datatable/css/responsive.dataTables.min.css')}}" rel="stylesheet">
-<link href="{{URL::asset('assets/plugins/select2/css/select2.min.css')}}" rel="stylesheet">
+
 @endsection
 @section('page-header')
 				<!-- breadcrumb -->
@@ -37,7 +32,7 @@
 
 <div class="col-sm-6 col-md-4 col-xl-3">
 	@can('اضافة صلاحية')
-<a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale" href="{{url('roles/create')}}">اضافة</a>
+<a class="btn btn-outline-primary btn-block" data-effect="effect-scale" href="{{url('roles/create')}}">اضافة</a>
 @endcan
 </div>
 
@@ -62,12 +57,12 @@ $i = 1;
 			<td>{{$val->name}}</td>
 			<td>
 @can('عرض صلاحية')
-<a class="modal-effect btn btn-sm btn-info" data-effect="effect-scale"  href="{{route('roles.showpermission',$val->id)}}">عرض</a>
+<a class="btn btn-sm btn-info" data-effect="effect-scale"  href="{{route('roles.showpermission',$val->id)}}">عرض</a>
 @endcan
 
 
 @can('تعديل صلاحية')
-<a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"  href="{{route('roles.edit',$val->id)}}">تعديل</a>
+<a class="btn btn-sm btn-danger" data-effect="effect-scale"  href="{{route('roles.edit',$val->id)}}">تعديل</a>
 @endcan
 
 
@@ -142,24 +137,7 @@ data-id="{{$val->id}}"
 		<!-- main-content closed -->
 @endsection
 @section('js')
-<script src="{{URL::asset('assets/plugins/datatable/js/jquery.dataTables.min.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/datatable/js/dataTables.dataTables.min.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/datatable/js/dataTables.responsive.min.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/datatable/js/responsive.dataTables.min.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/datatable/js/jquery.dataTables.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/datatable/js/dataTables.bootstrap4.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/datatable/js/dataTables.buttons.min.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/datatable/js/buttons.bootstrap4.min.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/datatable/js/jszip.min.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/datatable/js/pdfmake.min.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/datatable/js/vfs_fonts.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/datatable/js/buttons.html5.min.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/datatable/js/buttons.print.min.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/datatable/js/buttons.colVis.min.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/datatable/js/dataTables.responsive.min.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/datatable/js/responsive.bootstrap4.min.js')}}"></script>
-<!--Internal  Datatable js -->
-<script src="{{URL::asset('assets/js/table-data.js')}}"></script>
+
 
 <script>
 	$('#modaldemo9').on('show.bs.modal',function(event){

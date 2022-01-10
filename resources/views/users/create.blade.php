@@ -1,7 +1,6 @@
 @extends('layouts.master')
 @section('css')
 <!-- Internal Nice-select css  -->
-<link href="{{URL::asset('assets/plugins/jquery-nice-select/css/nice-select.css')}}" rel="stylesheet" />
 @section('title')
 اضافة مستخدم
 @endsection
@@ -135,11 +134,5 @@ action="{{route('users.store','test')}}" method="post">
 
 
 <!-- Internal Nice-select js-->
-<script src="{{URL::asset('assets/plugins/jquery-nice-select/js/jquery.nice-select.js')}}"></script>
-<script src="{{URL::asset('assets/plugins/jquery-nice-select/js/nice-select.js')}}"></script>
 
-<!--Internal  Parsley.min js -->
-<script src="{{URL::asset('assets/plugins/parsleyjs/parsley.min.js')}}"></script>
-<!-- Internal Form-validation js -->
-<script src="{{URL::asset('assets/js/form-validation.js')}}"></script>
 @endsection

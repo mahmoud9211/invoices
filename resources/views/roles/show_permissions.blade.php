@@ -1,9 +1,7 @@
 @extends('layouts.master')
 @section('css')
 <!--Internal  Font Awesome -->
-<link href="{{URL::asset('assets/plugins/fontawesome-free/css/all.min.css')}}" rel="stylesheet">
-<!--Internal  treeview -->
-<link href="{{URL::asset('assets/plugins/treeview/treeview-rtl.css')}}" rel="stylesheet" type="text/css" />
+
 
 <style>
 ul, #myUL {
@@ -110,16 +108,5 @@ ul, #myUL {
 <!-- main-content closed -->
 @endsection
 @section('js')
-<script src="{{URL::asset('assets/plugins/treeview/treeview.js')}}"></script>
-<script>
-var toggler = document.getElementsByClassName("caret");
-var i;
 
-for (i = 0; i < toggler.length; i++) {
-  toggler[i].addEventListener("click", function() {
-    this.parentElement.querySelector(".nested").classList.toggle("active");
-    this.classList.toggle("caret-down");
-  });
-}
-</script>	
 @endsection
